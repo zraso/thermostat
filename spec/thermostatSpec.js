@@ -1,7 +1,6 @@
-// 'use strict';
+'use strict';
 
-("Thermostat", function() {
-
+describe("Thermostat", function() {
   var thermostat;
 
   beforeEach(function() {
@@ -10,14 +9,21 @@
 
   describe('temperature of thermostat', function(){
     it('starts at 20 degrees', function() {
-      expect(thermostat.currentTemp()).toEqual(20);
-    });
-  });
+      expect(thermostat.getCurrentTemp()).toEqual(20)
+    })
+  })
 
-  describe('the up function', function(){
-    it('increases the temperature by 1', function(){
-      thermostat.up;
-      expect(thermostat.currentTemp()).toEqual(21);
-    });
-  });
-});
+  describe('should increase temperature', function(){
+    it('can increase temperature by 1', function() {
+      thermostat.up();
+      expect(thermostat.getCurrentTemp()).toEqual(21)
+    })
+  })
+
+  describe('should decrease temperature', function(){
+    it('can decrease temperature by 1', function() {
+      thermostat.down();
+      expect(thermostat.getCurrentTemp()).toEqual(19)
+    })
+  })
+})
