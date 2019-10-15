@@ -2,7 +2,11 @@
 'use strict'; // strict mode (as opposed to 'sloppy') highlights 'hidden' errors as actual errors etc
 
 function Thermostat() { // 'Object constructor'. Allows us to make instances of Thermostat object via new Thermostat()
-  this.temperature = 20; // 'Property'. 'this' tells JS interpreter that temperature belongs to Thermostat
+  this.temperature = 20;
+  this.MIN_TEMP = 10;
+  this.MAX_TEMP_PS = 25;
+  this.MAX_TEMP = 32;
+  this.powerSave = true; // 'Property'. 'this' tells JS interpreter that temperature belongs to Thermostat
 } // This is a Thermostat 'object constructor'
 
 Thermostat.prototype.getCurrentTemp = function(){ // 'Prototype' i.e. storage area for object. It 'associate/bind' getCurrentTemp to Thermostat
@@ -10,9 +14,31 @@ Thermostat.prototype.getCurrentTemp = function(){ // 'Prototype' i.e. storage ar
 }
 
 Thermostat.prototype.up = function(){
-  this.temperature += 1
+  var max = this.getCurrentMax
+   if (this.temperature < max) {
+     this.temperature += 1
+  }
 }
 
 Thermostat.prototype.down = function(){
-  this.temperature -= 1
+  if (this.temperature > this.MIN_TEMP) {
+    this.temperature -= 1
+  }
+}
+
+Thermostat.prototype.powerSaveOn = function() {
+  this.powerSave = true;
+}
+
+Thermostat.prototype.powerSaveOff = function() {
+  this.powerSave = false;
+}
+
+Thermostat.prototype.getCurrentMax = function(){
+  if (this.powerSave == true) {
+    return this.MAX_TEMP_PS
+  }
+  else {
+    return this.MAX_TEMP
+  }
 }
