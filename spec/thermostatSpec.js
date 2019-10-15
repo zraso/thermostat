@@ -47,14 +47,21 @@ describe("Thermostat", function() {
   describe('maximum temperature', function(){
     it('will not go higher than current maximum when PS is on', function(){
       for (let i=0; i<7; i++) { thermostat.up(); }
-      expect(thermostat.temperature).toEqual(25);
+      expect(thermostat.getCurrentTemp()).toEqual(25);
     });
 
     it('will not go higher than current maximum when PS is off', function(){
+      thermostat.powerSaveOff()
       for (let i=0; i<14; i++) { thermostat.up(); }
-      expect(thermostat.temperature).toEqual(32);
+      expect(thermostat.getCurrentTemp()).toEqual(32);
     });
   });
 
+describe('usage', function(){
+  it('reports currenty usage depending on temperature', function(){
+    for (let i=0; i<5; i++) { thermostat.down(); }
+    expect(thermostat.usage()).toEqual('low-usage');
+  });
+});
 
 })

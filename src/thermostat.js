@@ -14,7 +14,7 @@ Thermostat.prototype.getCurrentTemp = function(){ // 'Prototype' i.e. storage ar
 }
 
 Thermostat.prototype.up = function(){
-  var max = this.getCurrentMax
+  var max = this.getCurrentMax();
    if (this.temperature < max) {
      this.temperature += 1
   }
@@ -28,6 +28,9 @@ Thermostat.prototype.down = function(){
 
 Thermostat.prototype.powerSaveOn = function() {
   this.powerSave = true;
+  if (this.temperature > this.MAX_TEMP_PS) {
+    this.temperature = this.MAX_TEMP_PS;
+  }
 }
 
 Thermostat.prototype.powerSaveOff = function() {
@@ -40,5 +43,21 @@ Thermostat.prototype.getCurrentMax = function(){
   }
   else {
     return this.MAX_TEMP
+  }
+}
+
+Thermostat.prototype.reset = function() {
+  this.temperature = 20;
+}
+
+Thermostat.prototype.usage = function() {
+  if (this.temperature < 18) {
+    return 'low-usage';
+  }
+  else if (this.temperature < 25) {
+    return 'medium-usage';
+  }
+  else {
+    return 'high-usage';
   }
 }
