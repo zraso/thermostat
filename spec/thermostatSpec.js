@@ -57,6 +57,14 @@ describe("Thermostat", function() {
     });
   });
 
+describe('reset', function(){
+  it('returns temperature back to default', function(){
+    thermostat.reset()
+    expect(thermostat.getCurrentTemp()).toEqual(thermostat.DEFAULT_TEMP)
+  });
+});
+
+
 describe('usage', function(){
   it('reports currenty usage depending on temperature', function(){
     for (let i=0; i<5; i++) { thermostat.down(); }
