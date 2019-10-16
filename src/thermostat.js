@@ -56,7 +56,7 @@ Thermostat.prototype.usage = function() {
   if (this.temperature < this.LOW_USAGE_LIMIT) {
     return 'low-usage';
   }
-  else if (this.temperature >= this.LOW_USAGE_LIMIT && this.temperature <= this.MAX_TEMP) {
+  else if (this.temperature < this.MAX_TEMP_PS) {
     return 'medium-usage';
   }
   else {
