@@ -9,3 +9,10 @@
 .high-usage {
   color: red;
 }
+
+.world-temp {
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border: solid blue 10px;
+}
