@@ -1,21 +1,41 @@
 $(document).ready(function() {
 
   var therm = new Thermostat()
-  $('#temperature').text("Current temp: "+therm.temperature+" Celcius");
+
+  updateTemperature();
+
+  $.get('http://localhost:4567/temperature', function(data){
+      therm.temperature = parseInt(data);
+      console.log(data);
+      updateTemperature();
+  });
+
+  function sendTemperature() {
+    var send = {temperature: therm.temperature}
+    $.post('http://localhost:4567/temperature', send)
+  };
+
+  function updateTemperature() {
+    $('#temperature').text("Current temp: "+therm.temperature+" Celcius");
+    $('#temperature').attr('class', therm.usage());
+  };
 
   $('#temperature-up').click(function(){
     therm.up()
     updateTemperature();
+    sendTemperature();
   });
 
   $('#temperature-down').click(function(){
     therm.down()
     updateTemperature();
+    sendTemperature();
   });
 
   $('#temperature-reset').click(function(){
     therm.reset()
     updateTemperature();
+    sendTemperature();
   });
 
   $('#powersaving-on').click(function(){
@@ -40,12 +60,6 @@ $(document).ready(function() {
     // });
     displayWeather(city);
   });
-
-
-  function updateTemperature() {
-    $('#temperature').text("Current temp: "+therm.temperature+" Celcius");
-    $('#temperature').attr('class', therm.usage());
-  };
 
   function displayWeather(city) {
     var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
